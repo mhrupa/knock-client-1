@@ -7,7 +7,7 @@ public class KnockClientfactory {
         private KnockClientfactory(){}
 
         private static KnockClient knockClient = KnockClient.builder()
-        .apiKey("sk_test_m6qEP-i50xWQEmNCpLsRmshmZnZhzNtcp6OT-OrLDSk")
+        .apiKey("sk_test_Cn-OWbHhnJAS9SnV-IBaP1J23RSyUZtwQWRo7IgluqQ")
         .build();
 
         public static KnockClient getKnockClient() {

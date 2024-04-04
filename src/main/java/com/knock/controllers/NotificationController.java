@@ -17,16 +17,24 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping("/api")
-public class Client1Controller {
+public class NotificationController {
 
 	@Autowired
-	private KnockNotificationService knockTestService;
+	private KnockNotificationService knockNotificationService;
 
 	@PostMapping("/notification/trigger-client1")
-	public ResponseEntity<WorkflowTriggerResponse> sendTestMessage(
+	public ResponseEntity<WorkflowTriggerResponse> sendMessage(
 			@RequestBody WorkflowTriggerRequestDto workflowTriggerRequestDto) {
-		log.info("request received:" + workflowTriggerRequestDto);
-		WorkflowTriggerResponse response = knockTestService.triggerNotification(workflowTriggerRequestDto);
+		log.info("send message called");
+		WorkflowTriggerResponse response = knockNotificationService.triggerNotification(workflowTriggerRequestDto);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	@PostMapping("/notification/trigger-group-notifications")
+	public ResponseEntity<WorkflowTriggerResponse> sendMessageToGroup(
+			@RequestBody WorkflowTriggerRequestDto workflowTriggerRequestDto) {
+		log.info("sendMessageToGroup message called");
+		WorkflowTriggerResponse response = knockNotificationService.triggerGroupNotification(workflowTriggerRequestDto);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 

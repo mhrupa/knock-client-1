@@ -22,12 +22,29 @@ public class KnockNotificationService {
 				.trigger(buildfWorkFlowTriggerRequest(workflowTriggerRequestDto));
 	}
 
+	public WorkflowTriggerResponse triggerGroupNotification(WorkflowTriggerRequestDto workflowTriggerRequestDto) {
+
+		return KnockClientfactory.getKnockClient().workflows()
+				.trigger(buildfWorkFlowTriggerTogroupRequest(workflowTriggerRequestDto));
+	}
+
 	private WorkflowTriggerRequest buildfWorkFlowTriggerRequest(WorkflowTriggerRequestDto request) {
 		List<Object> recipientList = new ArrayList<Object>();
 
 		for (RecipientDto recipient : request.getRecipients()) {
 			recipientList
 					.add(Map.of("id", recipient.getId(), "name", recipient.getName(), "email", recipient.getEmail()));
+		}
+
+		return WorkflowTriggerRequest.builder().key(request.getKey()).data(request.getData())
+				.tenant(request.getTenant()).recipients(new ArrayList<Object>()).recipients(recipientList).build();
+	}
+
+	private WorkflowTriggerRequest buildfWorkFlowTriggerTogroupRequest(WorkflowTriggerRequestDto request) {
+		List<Object> recipientList = new ArrayList<Object>();
+
+		for (RecipientDto recipient : request.getRecipients()) {
+			recipientList.add(Map.of("id", recipient.getId(), "collection", recipient.getCollection()));
 		}
 
 		return WorkflowTriggerRequest.builder().key(request.getKey()).data(request.getData())

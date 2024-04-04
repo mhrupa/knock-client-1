@@ -10,9 +10,7 @@ import lombok.Data;
 public class WorkflowTriggerRequestDto {
 
 	String typeName;
-
 	String key;
-
 	Object actor;
 	List<RecipientDto> recipients;
 	String cancellationKey;
